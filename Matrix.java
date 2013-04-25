@@ -29,7 +29,7 @@ public class Matrix{
 	 * @param m columns in matrix
 	 * @param elements array containing the elements of the matrix
 	 */
-	Matrix(double[][] elements){		
+	Matrix(double[][] elements){
 		matrix = elements;
 		numRows = elements.length;
 		numCols = elements[0].length;
@@ -37,14 +37,14 @@ public class Matrix{
 	}
 	
 	/**
-	 * Returns an element at position [n,m].
+	 * Returns an element at position [x,y].
 	 * Throws IndexOutOfBoundsException if n or m is too large/small.
 	 */
-	public double getElement(int n, int m){
-		if(n >= 0 && n < numRows && m >= 0 && m < numCols)
-			return matrix[n][m];
+	public double getElement(int x, int y){
+		if(x >= 0 && x < numRows && y >= 0 && y < numCols)
+			return matrix[x][y];
 		
-		throw new IndexOutOfBoundsException("n eller m är fel!");
+		throw new IndexOutOfBoundsException("x eller y är fel!");
 	}
 	
 
@@ -65,35 +65,6 @@ public class Matrix{
 		return numCols;
 	}
 	
-	/**
-	 * Adds two Matrices together and returns the sum as a new Matrix.
-	 * @param B Matrix to be added to (this)
-	 */
-	public Matrix addMatrix(Matrix B){
-		if( B.getNumRows() != numRows || B.getNumCols() != numCols ){
-			throw new IllegalArgumentException("Matriserna har olika storlek.");
-		}
-		int n = numRows;
-		int m = numCols;
-		
-		double[][] sum  = new double [n][];
-		for(int i=0; i < n; i++){
-			sum[i] = new double [m];
-		}
-		
-		for(int i=0; i < n; i++){
-			for(int j=0; j < m; j++){
-				sum[i][j] = B.getElement(i, j) + (this).getElement(i, j);
-			}
-		}
-		
-		return new Matrix(sum);
+	
 
-	}
-	
-	
-	public static void main(String[] args){
-		Matrix m = new Matrix(4, 4);
-		System.out.println(m.getElement(2,2));
-	}
 }
