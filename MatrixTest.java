@@ -12,10 +12,12 @@ import org.junit.Test;
  * @version 2013-04-23
  */
 public class MatrixTest{
-    
+	
 
 	Matrix m0;
 	Matrix m4x4;
+	
+	MatrixCalculator calc = new MatrixCalculator();
 	double[][] elements;
 	
     /**
@@ -96,7 +98,7 @@ public class MatrixTest{
     
     @Test
     public void TestAddMatrix(){
-    	Matrix m = m0.addMatrix(m4x4);
+    	Matrix m = calc.add(m0, m4x4);
     	
     	//Tests 4x4 matrix
     	for(int i = 0; i < 4; i++){
@@ -105,7 +107,7 @@ public class MatrixTest{
     		}
     	}
     	
-    	m = m.addMatrix(m);
+    	m = calc.add(m,m);
     	
     	for(int i = 0; i < 4; i++){
     		for(int j = 0; j < 4; j++){
@@ -116,7 +118,7 @@ public class MatrixTest{
     	Matrix m2x2 = new Matrix(2,2);
     	
     	try{
-    		m2x2.addMatrix(m4x4);
+    		calc.add(m2x2, m4x4);
     		fail();
     	}catch (IllegalArgumentException e){
     	}
