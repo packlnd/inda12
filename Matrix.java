@@ -5,7 +5,7 @@
 
 public class Matrix{
 	
-	double[][] matrix;
+	double[][] elements;
 	int numRows, numCols; 
 	
 	/**
@@ -17,10 +17,8 @@ public class Matrix{
 		numRows = n;
 		numCols = m;
 		
-		matrix = new double [n][];
-		for(int i=0; i < n; i++){
-			matrix[i] = new double [m];
-		}
+		elements = new double [n][m];
+		
 	}
 	
 	/**
@@ -29,10 +27,10 @@ public class Matrix{
 	 * @param m columns in matrix
 	 * @param elements array containing the elements of the matrix
 	 */
-	Matrix(double[][] elements){
-		matrix = elements;
-		numRows = elements.length;
-		numCols = elements[0].length;
+	Matrix(double[][] matrix){
+		elements = matrix;
+		numRows = matrix.length;
+		numCols = matrix[0].length;
 		
 	}
 	
@@ -42,11 +40,19 @@ public class Matrix{
 	 */
 	public double getElement(int x, int y){
 		if(x >= 0 && x < numRows && y >= 0 && y < numCols)
-			return matrix[x][y];
+			return elements[x][y];
 		
 		throw new IndexOutOfBoundsException("x eller y är fel!");
 	}
 	
+	/**
+	 * Test method.
+	 * Used internally to simplify testing.
+	 * Adds element to index [n,m].
+	 */
+	public void addElement(int n, int m, double a){
+		elements[n][m] = a;
+	}
 
 
 	/**
@@ -66,5 +72,30 @@ public class Matrix{
 	}
 	
 	
+	/**
+	 * Returns a string representation of the Matrix. 
+	 */
+	public String toString(){
+		String s ="";
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("[");
+		
+		for(int i=0; i < numRows; i++){
+			sb.append("[");
+			for(int j=0; j < numCols; j++){
+				sb.append(elements[i][j]);
+				sb.append(" ");
+			}
+			sb.deleteCharAt(sb.length()-1);
+			sb.append("]");
+		}
+		
+		sb.append("]");
+		
+		s=sb.toString();
+		System.out.println(s);
+		return s;
+	}
 
 }
