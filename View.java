@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import java.awt.Component;
 
 /**
  * Class responsible for the view to the user. 
@@ -16,6 +17,7 @@ public class View extends JFrame {
 	JButton btnSearch;
 	JPanel panel;
 	JTextArea txtInput;
+	JTextArea txtOutput;
 	
 	/**
 	 * Class constructor. Initializes GUI
@@ -31,17 +33,19 @@ public class View extends JFrame {
 	private void createGUI() {
 		setPreferredSize(new Dimension(600, 800));
 		panel = new JPanel();
-		panel.setSize(300, 200);
-		panel.setLayout(new BorderLayout(2, 2));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		txtInput = new JTextArea();
-		txtInput.setEditable(true);
-		txtInput.setPreferredSize(new Dimension(400, 10));
-		panel.add(txtInput, BorderLayout.LINE_START);
-		
+		panel.add(txtInput);
+
 		btnSearch = new JButton("Sök");
 		btnSearch.addActionListener(new onSearchClick());
-		panel.add(btnSearch, BorderLayout.LINE_END);
+		btnSearch.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		panel.add(btnSearch);
+
+		txtOutput = new JTextArea();
+		panel.add(txtOutput);
+
 		setContentPane(panel);
 		pack();
 		setVisible(true);
