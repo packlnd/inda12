@@ -14,7 +14,7 @@ import java.awt.Component;
  */
 public class View extends JFrame {
 
-	JButton btnSearch;
+	JButton btnCalculate;
 	JPanel panel;
 	JTextArea txtInput;
 	JTextArea txtOutput;
@@ -38,10 +38,10 @@ public class View extends JFrame {
 		txtInput = new JTextArea();
 		panel.add(txtInput);
 
-		btnSearch = new JButton("Sök");
-		btnSearch.addActionListener(new onSearchClick());
-		btnSearch.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		panel.add(btnSearch);
+		btnCalculate = new JButton("=");
+		btnCalculate.addActionListener(new onCalculateClick());
+		btnCalculate.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		panel.add(btnCalculate);
 
 		txtOutput = new JTextArea();
 		panel.add(txtOutput);
@@ -56,9 +56,12 @@ public class View extends JFrame {
 		new View();
 	}
 
-	private class onSearchClick implements ActionListener {
+	/**
+	 * Handle click on calculate button.
+	 */
+	private class onCalculateClick implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			txtInput.setText("Hejhej");
+			// gör massa
 		}
 	}
 }
