@@ -1,5 +1,4 @@
 
-
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.After;
@@ -95,6 +94,54 @@ public class MatrixTest{
     	
     }
     
+
+    /**
+     * Tests that swapRows-method works properly.
+     */
+    @Test
+    public void TestSwapRows(){
+    	m4x4.swapRows(0, 1);
+    	
+    	assertEquals(m4x4.getElement(0, 0), 1, 0.001);
+    	assertEquals(m4x4.getElement(0, 1), 2, 0.001);
+    	assertEquals(m4x4.getElement(0, 2), 3, 0.001);
+    	assertEquals(m4x4.getElement(0, 3), 4, 0.001);
+
+    	assertEquals(m4x4.getElement(1, 0), 0, 0.001);
+    	assertEquals(m4x4.getElement(1, 1), 1, 0.001);
+    	assertEquals(m4x4.getElement(1, 2), 2, 0.001);
+    	assertEquals(m4x4.getElement(1, 3), 3, 0.001);
+    	
+    	Matrix m = new Matrix(2,2);
+    	m.setElement(0, 0, 1);
+    	m.setElement(0, 1, 0);
+    	m.setElement(1, 0, 0);
+    	m.setElement(1, 1, 1);
+    	m.swapRows(0, 1);
+
+    	assertEquals(m.getElement(0, 0), 0, 0.001);
+    	assertEquals(m.getElement(0, 1), 1, 0.001);
+    	assertEquals(m.getElement(1, 0), 1, 0.001);
+    	assertEquals(m.getElement(1, 1), 0, 0.001);
+
+    }
+    
+    /**
+     * Tests the toString method works properly.
+     */
+    public void TestToString(){
+    	//4x4 matrix with all entries = 0
+    	assertEquals("[[0.0 0.0 0.0 0.0][0.0 0.0 0.0 0.0][0.0 0.0 0.0 0.0][0.0 0.0 0.0 0.0]]", m0.toString());
+    	//4x4 matrix where element at [i,j] = i+j
+    	assertEquals("[[0.0 1.0 2.0 3.0][1.0 2.0 3.0 4.0][2.0 3.0 4.0 5.0][3.0 4.0 5.0 6.0]]", m4x4.toString());
+    	
+    	Matrix m = new Matrix(1,1);
+    	m.setElement(1, 1, 7);
+    	assertEquals("[[7]]", m.toString());
+    }
+    
+    
+    
     /**
      * Tests the add(Matrix, Matrix) function.
      * 
@@ -169,17 +216,17 @@ public class MatrixTest{
     	
     	//Create row matrix filled with 2's
     	Matrix m4x1 = new Matrix(4, 1);	
-    	m4x1.addElement(0, 0, 2.0);
-    	m4x1.addElement(1, 0, 2.0);
-    	m4x1.addElement(2, 0, 2.0);
-    	m4x1.addElement(3, 0, 2.0);
+    	m4x1.setElement(0, 0, 2.0);
+    	m4x1.setElement(1, 0, 2.0);
+    	m4x1.setElement(2, 0, 2.0);
+    	m4x1.setElement(3, 0, 2.0);
     	
     	//Create col matrix filled with 2's
     	Matrix m1x4 = new Matrix(1, 4);
-    	m1x4.addElement(0, 0, 2.0);
-    	m1x4.addElement(0, 1, 2.0);
-    	m1x4.addElement(0, 2, 2.0);
-    	m1x4.addElement(0, 3, 2.0);
+    	m1x4.setElement(0, 0, 2.0);
+    	m1x4.setElement(0, 1, 2.0);
+    	m1x4.setElement(0, 2, 2.0);
+    	m1x4.setElement(0, 3, 2.0);
     	
     	//Tests that A*B != BA
     	m = calc.multiply(m1x4, m4x1);
@@ -202,18 +249,82 @@ public class MatrixTest{
     	
     }
     
+    /**
+     * Tests the determinant method.
+     */
+    @Test
+    public void TestFindDeterminant(){
+    	double[][] a = new double[2][2];
+    	a[0][0] = 1;
+    	a[0][1] = 2;
+    	a[1][0] = 3;
+    	a[1][1] = 4;
+	
+    	Matrix m = new Matrix(a);
+    	
+    	assertEquals(-2, calc.findDeterminant(m), 0.001);
+    	
+    	a[0][0] = 3;	
+    	a[0][1] = 4;
+    	a[1][0] = 1;
+    	a[1][1] = 2;
+	
+    	m = new Matrix(a);
+    	assertEquals(2, calc.findDeterminant(m), 0.001);
+
+    	
+    	double b[][] = new double[4][4];
+    	
+    	b[0][0] = 2;
+    	b[0][1] = 1;
+    	b[0][2] = 7;
+    	b[0][3] = 1;
+
+    	b[1][0] = 0;
+    	b[1][1] = 1;
+		b[1][2] = 0;
+		b[1][3] = 1;
+		
+		b[2][0] = 4;
+		b[2][1] = 2;
+		b[2][2] = 2;
+		b[2][3] = 2;
+		
+		b[3][0] = -1;
+		b[3][1] = 4;
+		b[3][2] = 1;
+		b[3][3] = 3;
+
+    	m = new Matrix(b);
+    	System.out.println(m);
+    	assertEquals(24, calc.findDeterminant(m), 0.001);
+    }
     
     /**
-     * Tests the toString method works properly.
+     * Test that Gauss properly reduces matrices to reduced row form.
      */
-    public void TestToString(){
-    	//4x4 matrix with all entries = 0
-    	assertEquals("[[0.0 0.0 0.0 0.0][0.0 0.0 0.0 0.0][0.0 0.0 0.0 0.0][0.0 0.0 0.0 0.0]]", m0.toString());
-    	//4x4 matrix where element at [i,j] = i+j
-    	assertEquals("[[0.0 1.0 2.0 3.0][1.0 2.0 3.0 4.0][2.0 3.0 4.0 5.0][3.0 4.0 5.0 6.0]]", m4x4.toString());
+    @Test
+    public void TestGauss(){
+    	double[][] a = new double[3][3];
+    	a[0][0] = 1;
+    	a[0][1] = 1;
+    	a[0][2] = 1;
+    	//a[0][3] = -4;
     	
-    	Matrix m = new Matrix(1,1);
-    	m.addElement(1, 1, 7);
-    	assertEquals("[[7]]", m.toString());
+    	a[1][0] = 1;
+    	a[1][1] = 2;
+    	a[1][2] = 1;
+    	//a[1][3] = 4;
+    	
+    	a[2][0] = 1;
+    	a[2][1] = 1;
+    	a[2][2] = 1;
+    //	a[2][3] = 1;
+    	
+    	Matrix m3x3 = new Matrix(a);
+    	
+    	calc.gauss(m3x3);
     }
+    
+ 
 }
