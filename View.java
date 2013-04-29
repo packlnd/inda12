@@ -7,7 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.*;
 
 /**
  * Class responsible for the view to the user. 
@@ -16,9 +19,9 @@ import java.awt.Component;
 public class View extends JFrame {
 
 	JButton btnCalculate;
-	JPanel panel;
+	JPanel backgroundPanel;
 	JPanel mainPanel;
-	JTextArea txtInput;
+	JTextField txtInput;
 	JTextArea txtOutput;
 	InputParser parser;
 	
@@ -35,25 +38,36 @@ public class View extends JFrame {
 	 */
 	private void createGUI() {
 		setPreferredSize(new Dimension(600, 400));
-		panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		backgroundPanel = new JPanel();
+		backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new FlowLayout());
 		
-		txtInput = new JTextArea();
+		Font f = new Font("Verdana", Font.BOLD, 12);
+
+		txtInput = new JTextField();
 		txtInput.setPreferredSize(new Dimension(400, 30));
+		txtInput.setFont(f);
+		txtInput.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnCalculate.doClick();
+				}
+			}
+		});
 		mainPanel.add(txtInput);
 
 		btnCalculate = new JButton("=");
 		btnCalculate.addActionListener(new onCalculateClick());
 		btnCalculate.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		mainPanel.add(btnCalculate);
-		panel.add(mainPanel);
+		backgroundPanel.add(mainPanel);
 
 		txtOutput = new JTextArea();
-		panel.add(txtOutput);
+		txtOutput.setFont(f);
+		backgroundPanel.add(txtOutput);
 
-		setContentPane(panel);
+		setContentPane(backgroundPanel);
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
