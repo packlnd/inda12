@@ -50,7 +50,7 @@ public class Matrix{
 	 * Used internally to simplify testing.
 	 * Adds element to index [n,m].
 	 */
-	public void addElement(int n, int m, double a){
+	public void setElement(int n, int m, double a){
 		elements[n][m] = a;
 	}
 
@@ -73,6 +73,48 @@ public class Matrix{
 	
 	
 	/**
+	 * Swaps the rows a and b in the Matrix.
+	 */
+	public void swapRows(int a, int b){
+		if(a < 0 || a > numRows || b < 0 || b > numRows)
+			throw new IllegalArgumentException("The rows you're trying to swap do not exist in Matrix.");
+		
+		double temp;
+		for(int i = 0; i < numCols; i++){
+			temp = elements[a][i];
+			elements[a][i] = elements[b][i];
+			elements[b][i] = temp;
+		}
+		
+	}
+	
+	/**
+	 * Multiplies each element in row by scalar.
+	 */
+	public void scalarMultiplicationRow(double scalar, int row){
+		if(row < 0 || row > numRows)
+			throw new IllegalArgumentException("Row is not in matrix.");
+		
+		for(int i = 0; i < numCols; i++){
+			elements[row][i] *= scalar;
+		}
+	}
+	
+	
+	/**
+	 * Multiplies row by scalar, and adds the product to targetRow.
+	 */
+	public void addRowMultipliedByScalar(double scalar, int targetRow, int addendRow){
+		if(targetRow < 0 || targetRow > numRows || addendRow < 0 || addendRow > numRows)
+			throw new IllegalArgumentException("Row is not in matrix.");
+		
+		for(int i = 0; i < numCols; i++){
+			elements[targetRow][i] += scalar * elements[addendRow][i];
+		}
+		
+	}
+	
+	/**
 	 * Returns a string representation of the Matrix. 
 	 */
 	public String toString(){
@@ -84,7 +126,11 @@ public class Matrix{
 		for(int i=0; i < numRows; i++){
 			sb.append("[");
 			for(int j=0; j < numCols; j++){
-				sb.append(elements[i][j]);
+				if(elements[i][j] % 1.0 != 0){
+					sb.append(elements[i][j]);
+				}else{
+					sb.append((int)elements[i][j]);
+				}
 				sb.append(" ");
 			}
 			sb.deleteCharAt(sb.length()-1);
@@ -94,7 +140,6 @@ public class Matrix{
 		sb.append("]");
 		
 		s=sb.toString();
-		System.out.println(s);
 		return s;
 	}
 
