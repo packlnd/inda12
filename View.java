@@ -20,6 +20,7 @@ public class View extends JFrame {
 	JPanel mainPanel;
 	JTextArea txtInput;
 	JTextArea txtOutput;
+	InputParser parser;
 	
 	/**
 	 * Class constructor. Initializes GUI
@@ -56,6 +57,8 @@ public class View extends JFrame {
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		parser = new InputParser();
 	}
 	
 	public static void main(String[] args) {
