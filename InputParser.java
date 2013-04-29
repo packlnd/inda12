@@ -3,5 +3,8 @@
  * for the MatrixOperations class.
  */
 public class InputParser {
-
+	public String parseData(String input) {
+		// regex
+		return "output";
+	}
 }

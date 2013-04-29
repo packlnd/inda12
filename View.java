@@ -70,7 +70,10 @@ public class View extends JFrame {
 	 */
 	private class onCalculateClick implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			// gör massa
+			String output = parser.parseData(txtInput.getText()); 
+			// What to do with output? hashmap for later?
+			// ...
+			txtOutput.setText(output);
 		}
 	}
 }
