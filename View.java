@@ -1,4 +1,5 @@
 import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
@@ -16,6 +17,7 @@ public class View extends JFrame {
 
 	JButton btnCalculate;
 	JPanel panel;
+	JPanel mainPanel;
 	JTextArea txtInput;
 	JTextArea txtOutput;
 	
@@ -31,17 +33,21 @@ public class View extends JFrame {
 	 * Create the GUI and display to the user.
 	 */
 	private void createGUI() {
-		setPreferredSize(new Dimension(600, 800));
+		setPreferredSize(new Dimension(600, 400));
 		panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new FlowLayout());
 		
 		txtInput = new JTextArea();
-		panel.add(txtInput);
+		txtInput.setPreferredSize(new Dimension(400, 30));
+		mainPanel.add(txtInput);
 
 		btnCalculate = new JButton("=");
 		btnCalculate.addActionListener(new onCalculateClick());
 		btnCalculate.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		panel.add(btnCalculate);
+		mainPanel.add(btnCalculate);
+		panel.add(mainPanel);
 
 		txtOutput = new JTextArea();
 		panel.add(txtOutput);
