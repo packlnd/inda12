@@ -12,8 +12,11 @@ public class Matrix{
 	 * Creates a new empty matrix.
 	 * @param n rows in matrix
 	 * @param m columns in matrix
+	 * @throws IndexOutOfBoundsException if n or m are negative.
 	 */
 	Matrix(int n, int m){
+		if(n < 0 || m < 0)
+			throw new IndexOutOfBoundsException();
 		numRows = n;
 		numCols = m;
 		
@@ -28,6 +31,9 @@ public class Matrix{
 	 * @param elements array containing the elements of the matrix
 	 */
 	Matrix(double[][] matrix){
+		if(matrix == null)
+			throw new IllegalArgumentException();
+		
 		elements = matrix;
 		numRows = matrix.length;
 		numCols = matrix[0].length;
@@ -36,24 +42,15 @@ public class Matrix{
 	
 	/**
 	 * Returns an element at position [x,y].
-	 * Throws IndexOutOfBoundsException if n or m is too large/small.
+	 * @throws IndexOutOfBoundsException if n or m is too small/big.
 	 */
 	public double getElement(int x, int y){
-		if(x >= 0 && x < numRows && y >= 0 && y < numCols)
-			return elements[x][y];
+		if(x < 0 || x > numRows || y < 0 || y > numCols)
+			throw new IndexOutOfBoundsException("x or y are out of bounds; x = " + x + " y = " + y);
 		
-		throw new IndexOutOfBoundsException("x eller y är fel!");
+		return elements[x][y];
 	}
 	
-	/**
-	 * Test method.
-	 * Used internally to simplify testing.
-	 * Adds element to index [n,m].
-	 */
-	public void setElement(int n, int m, double a){
-		elements[n][m] = a;
-	}
-
 
 	/**
 	 * Returns the number of rows in Matrix.
@@ -73,27 +70,30 @@ public class Matrix{
 	
 	
 	/**
-	 * Swaps the rows a and b in the Matrix.
+	 * Swaps the rows x and y in the Matrix.
+	 * @param x y indexes for the two rows.
+	 * @throws IndexOutOfBoundsException if a or b are too small/big.
 	 */
-	public void swapRows(int a, int b){
-		if(a < 0 || a > numRows || b < 0 || b > numRows)
-			throw new IllegalArgumentException("The rows you're trying to swap do not exist in Matrix.");
+	public void swapRows(int x, int y){
+		if(x < 0 || x > numRows || y < 0 || y > numCols)
+			throw new IndexOutOfBoundsException("x or y are out of bounds; x = " + x + " y = " + y);
 		
 		double temp;
 		for(int i = 0; i < numCols; i++){
-			temp = elements[a][i];
-			elements[a][i] = elements[b][i];
-			elements[b][i] = temp;
+			temp = elements[x][i];
+			elements[x][i] = elements[y][i];
+			elements[y][i] = temp;
 		}
 		
 	}
 	
 	/**
 	 * Multiplies each element in row by scalar.
+	 * @throws IndexOutOfBoundsException if row is not a valid index. 
 	 */
 	public void scalarMultiplicationRow(double scalar, int row){
 		if(row < 0 || row > numRows)
-			throw new IllegalArgumentException("Row is not in matrix.");
+			throw new IndexOutOfBoundsException("Row is not in matrix.");
 		
 		for(int i = 0; i < numCols; i++){
 			elements[row][i] *= scalar;
@@ -103,10 +103,11 @@ public class Matrix{
 	
 	/**
 	 * Multiplies row by scalar, and adds the product to targetRow.
+	 * @throws IndexOutOfBoundsException if targetRow or addendRow are too small/big.
 	 */
 	public void addRowMultipliedByScalar(double scalar, int targetRow, int addendRow){
 		if(targetRow < 0 || targetRow > numRows || addendRow < 0 || addendRow > numRows)
-			throw new IllegalArgumentException("Row is not in matrix.");
+			throw new IndexOutOfBoundsException("Row is not in matrix.");
 		
 		for(int i = 0; i < numCols; i++){
 			elements[targetRow][i] += scalar * elements[addendRow][i];
