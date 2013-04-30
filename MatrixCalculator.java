@@ -39,13 +39,12 @@ public class MatrixCalculator {
 			throw new IllegalArgumentException("Number of rows in A is not equal to the number of columns in B.");
 		}
 		
-		
 		int n = A.getNumCols();
 		int m = A.getNumRows();
 		int p = B.getNumCols();
-		
 		double[][] product = new double[m][p];
 		
+
 		for(int i=0; i < m; i++){
 			for(int j=0; j < p; j++){
 				for(int k=0; k < n; k++){
@@ -87,7 +86,6 @@ public class MatrixCalculator {
 					//double a = A.getElement(i, j) - A.getElement(k, j) * (A.getElement(i, k) / A.getElement(k, k) );
 					//A.setElement(i, j, a);
 				}
-				A.setElement(i, k, 0);
 			}
 		}
 	}
@@ -134,7 +132,6 @@ public class MatrixCalculator {
 					//double a = A.getElement(i, j) - A.getElement(k, j) * (A.getElement(i, k) / A.getElement(k, k) );
 					//A.setElement(i, j, a);
 				}
-				A.setElement(i, k, 0);
 			}
 			System.out.println(A);
 			
