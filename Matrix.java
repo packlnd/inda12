@@ -91,7 +91,7 @@ public class Matrix{
 	 * Multiplies each element in row by scalar.
 	 * @throws IndexOutOfBoundsException if row is not a valid index. 
 	 */
-	public void scalarMultiplicationRow(double scalar, int row){
+	public void multiplyRowByScalar(double scalar, int row){
 		if(row < 0 || row > numRows)
 			throw new IndexOutOfBoundsException("Row is not in matrix.");
 		
@@ -108,7 +108,7 @@ public class Matrix{
 	public void addRowMultipliedByScalar(double scalar, int targetRow, int addendRow){
 		if(targetRow < 0 || targetRow > numRows || addendRow < 0 || addendRow > numRows)
 			throw new IndexOutOfBoundsException("Row is not in matrix.");
-		
+
 		for(int i = 0; i < numCols; i++){
 			elements[targetRow][i] += scalar * elements[addendRow][i];
 		}
