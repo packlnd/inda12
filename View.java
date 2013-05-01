@@ -28,15 +28,15 @@ public class View extends JFrame {
 	/**
 	 * Class constructor. Initializes GUI
 	 */
-	public View() {
+	public View(InputParser parser) {
 		super("Matrix");
-		createGUI();
+		this.parser = parser;
 	}
 	
 	/**
 	 * Create the GUI and display to the user.
 	 */
-	private void createGUI() {
+	public void createGUI() {
 		setPreferredSize(new Dimension(600, 400));
 		backgroundPanel = new JPanel();
 		backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
@@ -71,12 +71,6 @@ public class View extends JFrame {
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		parser = new InputParser();
-	}
-	
-	public static void main(String[] args) {
-		new View();
 	}
 
 	/**
