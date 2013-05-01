@@ -40,8 +40,10 @@ public class InputParser {
 
 		// Only matrix
 		} else if (rows[0].trim().matches("")) {
+			int numberOfElements = elementsInRow(rows[1].trim());
 			for (int i = 1; i < rows.length; i++) {
-				if (rows[i].trim().matches(rowOfNumbers)) {
+				if (rows[i].trim().matches(rowOfNumbers) && 
+					elementsInRow(rows[i].trim()) == numberOfElements) {
 					continue;
 				}
 				return wrongString;
@@ -81,15 +83,20 @@ public class InputParser {
 		}
 		Matrix m = new Matrix(matrix);
 
-		// need to handle keywords
+		/*if (keyword.equals("reduce")) {
+			Matrix result = calculator.gauss(m);
+			return result.toString();
+		} else if (keyword.equals("invert")) {
+			Matrix result = calculator.invert(m);
+			return result.toString();
+		}*/
 		return wrongString;
 	}
 
+	/**
+	 * Return the number of elemens in this row.
+	 */
 	private int elementsInRow(String s) {
-		// Längden på en sträng i formatet [1 2] är 
-		// l = 2*e - 1     ex: l = 2*2 - 1 = 3 som ovan
-		// =>
-		// e = (l + 1)/2   ex: e = (3 + 1)/2 = 2 som ovan
 		return ((s.toCharArray().length + 1)/2);
 	}
 }
