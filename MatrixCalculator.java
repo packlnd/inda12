@@ -147,6 +147,74 @@ public class MatrixCalculator {
 	}
 	
 
-	
+	/**
+	 * Inverts an nxn matrix A
+	 * @param A
+	 * @throws IllegalArgumentException if
+	 * 			1) Matrix is not square
+	 * 			2) Matrix is singular.
+	 */
+	public void invert(Matrix A){
+		if(A.getNumCols() != A.getNumRows())
+			throw new IllegalArgumentException("Non-square matrix");
+		
+		int n = A.getNumCols();
+		double [][] identity = new double[n][n];
+		for(int i = 0; i < n; i++)
+			identity[i][i] = 1;
+		
+		Matrix I = new Matrix(identity);
+		
+		for(int k = 0; k < n; k++){
+			int pivot=0;
+		
+			for(int j=k; j < n; j++){
+				if( pivot < Math.abs(A.getElement(j, k)) ){
+					pivot = j;
+				}
+			}
+			if(A.getElement(pivot, k) == 0){
+				throw new IllegalArgumentException("Matrix is singular!");
+			}
+			
+			if(k != pivot){
+				A.swapRows(k, pivot);
+				I.swapRows(k, pivot);
+			}
+			
+			for(int i=k+1; i < n; i++){
+				for(int j = k+1; j < n; j++){
+					double scalar = (-1)*(A.getElement(i, k)/A.getElement(k,k));
+					A.addRowMultipliedByScalar( scalar, i, k);
+					I.addRowMultipliedByScalar( scalar, i, k);
+					//double a = A.getElement(i, j) - A.getElement(k, j) * (A.getElement(i, k) / A.getElement(k, k) );
+					//A.setElement(i, j, a);
+				}
+			}
+			
+		}
+		
+
+		//Make all diagonal elements = 1 
+		for(int i = 0; i < n; i++){
+			double scalar = (1/A.getElement(i, i));
+			A.multiplyRowByScalar( scalar, i);
+			I.multiplyRowByScalar( scalar, i);
+		}
+
+
+		
+		for(int i = n-1; i > 0; i--){
+			for(int j = 0; j < i; j++){
+				double scalar = (-1)*(A.getElement(i, i)*A.getElement(j,i));
+				A.addRowMultipliedByScalar( scalar, j, i);
+				I.addRowMultipliedByScalar( scalar, j, i);
+			}
+		}
+
+		//TODO
+		//Round down elements of I
+		//Return I
+	}
 	
 }
