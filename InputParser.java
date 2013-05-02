@@ -34,13 +34,13 @@ public class InputParser {
 				rows[i] = rows[i].trim().toLowerCase();
 			}
 			String keyword = rows[0];
+			rows[0] = "";
 
 			if (rows.length <= 0 ||	!keywords.contains(keyword)) {
 				throw new IllegalArgumentException();
 			}
 
 			LinkedList<Matrix> matrices = dataToMatrices(rows);
-
 			return doOperation(keyword, matrices);
 		} catch (IllegalArgumentException iae) {
 			return "Jag förstår inte vad du menar!";
@@ -55,9 +55,8 @@ public class InputParser {
 			throw new IllegalArgumentException();
 		}
 
-		if (keyword.equals("reduce")) {
-			/*Matrix result = calculator.gauss(matrices.remove());
-			return result.toString();*/
+		if (keyword.equals("determinant")) {
+			return "" + calculator.findDeterminant(matrices.remove());
 		} else if (keyword.equals("")) {
 			return matrices.remove().toString();
 		}
@@ -69,21 +68,31 @@ public class InputParser {
 	 */
 	private LinkedList<Matrix> dataToMatrices(String[] rows) {
 		LinkedList<Matrix> matrices = new LinkedList<Matrix>();
-		rows[0] = "";
 
-		double[][] matrix;
+		double[][] matrix = new double[0][0];
 		int row = 0;
+		int c = 0;
 		for (int i = 0; i < rows.length; i++) {
-			if (rows[i].equals("")) {
-				int r = linesBeforeNextMatrix(rows, i);
-				int c = elementsInRow(rows[i+1]);
+			if (rows[i].equals("")) { // start new matrix
+				int r = linesBeforeNextMatrix(rows, i); 
+				c = elementsInRow(rows[i+1]);
+				matrices.add(new Matrix(matrix));
 				matrix = new double[r][c];
 				row = 0;
 				continue;
 			}
-			// GAMMAL MATRIS
+			// continue old matrix
+			int cRow = elementsInRow(rows[i]);
+			if (cRow != c) {
+				throw new IllegalArgumentException();
+			}
+			String[] elements = rows[i].split("\\s");
+			for (int j = 0; j < cRow; j++) {
+				matrix[row][j] = Double.parseDouble(elements[j]);
+			}
+			row++;
 		}
-
+		matrices.add(new Matrix(matrix));
 		return matrices;
 	}
 
