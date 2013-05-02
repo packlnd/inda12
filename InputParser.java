@@ -42,6 +42,7 @@ public class InputParser {
 
 			LinkedList<Matrix> matrices = dataToMatrices(rows);
 			return doOperation(keyword, matrices);
+
 		} catch (IllegalArgumentException iae) {
 			return "Jag förstår inte vad du menar!";
 		}
@@ -69,9 +70,9 @@ public class InputParser {
 	private LinkedList<Matrix> dataToMatrices(String[] rows) {
 		LinkedList<Matrix> matrices = new LinkedList<Matrix>();
 
-		double[][] matrix = new double[0][0];
+		double[][] matrix = new double[linesBeforeNextMatrix(rows, 0)][elementsInRow(rows[1])];
 		int row = 0;
-		int c = 0;
+		int c = elementsInRow(rows[1]);
 		for (int i = 1; i < rows.length; i++) {
 			if (rows[i].equals("")) { // start new matrix
 				int r = linesBeforeNextMatrix(rows, i); 
@@ -87,7 +88,7 @@ public class InputParser {
 				throw new IllegalArgumentException();
 			}
 			String[] elements = rows[i].split("\\s");
-			for (int j = 0; j < cRow; j++) {
+			for (int j = 0; j < elements.length; j++) {
 				matrix[row][j] = Double.parseDouble(elements[j]);
 			}
 			row++;
