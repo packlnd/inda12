@@ -91,6 +91,16 @@ public class MatrixCalculator {
 			}
 			
 		}
+		
+		//Make all diagonal elements = 1 
+		for(int i = 0; i < n; i++){
+			if(A.getElement(i, i) != 0){
+				double scalar = (1/A.getElement(i, i));
+				A.multiplyRowByScalar( scalar, i);
+			}
+		}
+		
+		System.out.println(A);
 
 	
 		//Round down elements of I
@@ -99,7 +109,8 @@ public class MatrixCalculator {
 				roundTwoDecimals(A.getElement(i, j));
 			}
 		}
-		
+
+		System.out.println(A);
 		
 		return A;
 	}
@@ -166,6 +177,7 @@ public class MatrixCalculator {
 	 * @throws IllegalArgumentException if
 	 * 			1) Matrix is not square
 	 * 			2) Matrix is singular.
+	 * 			3) Determinant == 0
 	 */
 	public Matrix invert(Matrix A){
 		if(A.getNumCols() != A.getNumRows())
@@ -207,6 +219,12 @@ public class MatrixCalculator {
 			
 		}
 		
+		double det=A.getElement(0,0);
+		for(int i = 1; i < n; i++){
+			det *= A.getElement(i, i);
+		}
+		if(det == 0)
+			throw new IllegalArgumentException("Matrix is not invertible!");
 
 		//Make all diagonal elements = 1 
 		for(int i = 0; i < n; i++){
@@ -216,7 +234,7 @@ public class MatrixCalculator {
 		}
 
 
-		//This might break completely
+		
 		for(int i = n-1; i > 0; i--){
 			for(int j = 0; j < i; j++){
 				double scalar = (-1)*(A.getElement(i, i)*A.getElement(j,i));
@@ -225,6 +243,7 @@ public class MatrixCalculator {
 			}
 		}
 
+		//TODO
 		//Round down elements of I
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < n; j++){
