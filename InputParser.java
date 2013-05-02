@@ -72,7 +72,7 @@ public class InputParser {
 		double[][] matrix = new double[0][0];
 		int row = 0;
 		int c = 0;
-		for (int i = 0; i < rows.length; i++) {
+		for (int i = 1; i < rows.length; i++) {
 			if (rows[i].equals("")) { // start new matrix
 				int r = linesBeforeNextMatrix(rows, i); 
 				c = elementsInRow(rows[i+1]);
