@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 
 public class MatrixCalculator {
 
@@ -60,7 +62,7 @@ public class MatrixCalculator {
 	/**
 	 * Reduces Matrix A to reduced row echelon form.
 	 */
-	public void gauss(Matrix A){
+	public Matrix gauss(Matrix A){
 		int m = A.getNumRows();
 		int n = A.getNumCols();
 		
@@ -87,7 +89,19 @@ public class MatrixCalculator {
 					//A.setElement(i, j, a);
 				}
 			}
+			
 		}
+
+	
+		//Round down elements of I
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				roundTwoDecimals(A.getElement(i, j));
+			}
+		}
+		
+		
+		return A;
 	}
 	
 	/**
@@ -133,7 +147,6 @@ public class MatrixCalculator {
 					//A.setElement(i, j, a);
 				}
 			}
-			System.out.println(A);
 			
 		}
 		double det=A.getElement(0,0);
@@ -154,7 +167,7 @@ public class MatrixCalculator {
 	 * 			1) Matrix is not square
 	 * 			2) Matrix is singular.
 	 */
-	public void invert(Matrix A){
+	public Matrix invert(Matrix A){
 		if(A.getNumCols() != A.getNumRows())
 			throw new IllegalArgumentException("Non-square matrix");
 		
@@ -203,7 +216,7 @@ public class MatrixCalculator {
 		}
 
 
-		
+		//This might break completely
 		for(int i = n-1; i > 0; i--){
 			for(int j = 0; j < i; j++){
 				double scalar = (-1)*(A.getElement(i, i)*A.getElement(j,i));
@@ -212,9 +225,18 @@ public class MatrixCalculator {
 			}
 		}
 
-		//TODO
 		//Round down elements of I
-		//Return I
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				roundTwoDecimals(I.getElement(i, j));
+			}
+		}
+		
+		return I;
 	}
 	
+	double roundTwoDecimals(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.valueOf(twoDForm.format(d));
+	}
 }
