@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 /**
  * This class specifies a nxm matrix, 
  * and some operations that can be performed on matrices. 
@@ -66,6 +68,19 @@ public class Matrix{
 	 */
 	public int getNumCols(){
 		return numCols;
+	}
+	
+	public void roundElements(){
+		for(int i = 0; i < numRows; i++){
+			for(int j = 0; j < numCols; j++){
+				elements[i][j] = roundTwoDecimals(elements[i][j]);
+			}
+		}
+	}
+	
+	private double roundTwoDecimals(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("0.00");
+        return Double.valueOf(twoDForm.format(d));
 	}
 	
 	
