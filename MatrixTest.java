@@ -12,8 +12,6 @@ import org.junit.Test;
  * @version 2013-04-23
  */
 public class MatrixTest{
-	
-
 	Matrix m0;
 	Matrix m4x4;
 	Matrix m2x2;
@@ -347,7 +345,6 @@ public class MatrixTest{
 		b[3][3] = 3;
 
     	m = new Matrix(b);
-    	System.out.println(m);
     	assertEquals(24, calc.findDeterminant(m), 0.001);
     }
     
@@ -368,12 +365,87 @@ public class MatrixTest{
     	a[2][0] = 1;
     	a[2][1] = 1;
     	a[2][2] = 1;
-    //	a[2][3] = 1;
     	
     	Matrix m3x3 = new Matrix(a);
     	
     	calc.gauss(m3x3);
+    	
+    	a = new double[2][3];
+    	a[0][0] = 1;
+    	a[0][1] = 5;
+    	a[0][2] = 7;
+
+    	a[1][0] = -2;
+    	a[1][1] = -7;
+    	a[1][2] = -5;
+    	
+    	Matrix m2x3 = new Matrix(a);
+
+    	System.out.println(m2x3);
+    	m2x3 = calc.gauss(m2x3);
+    	System.out.println(m2x3);
     }
     
+    
+    @Test
+    public void TestInvert(){
+    	double[][] a = new double[3][3];
+    	a[0][0] = 1;
+    	a[0][1] = 2;
+    	a[0][2] = 3;  	
+    	
+    	a[1][0] = 0;
+    	a[1][1] = 1;
+       	a[1][2] = 4;
+
+    	a[2][0] = 5;
+    	a[2][1] = 6;
+    	a[2][2] = 0;
+    	
+    	Matrix m = new Matrix(a);
+    	
+    	m = calc.invert(m);
+
+    	assertEquals(m.getElement(0, 0), -24, 0.001);
+    	assertEquals(m.getElement(0, 1), 18, 0.001);
+    	assertEquals(m.getElement(0, 2), 5, 0.001);
+    	
+    	assertEquals(m.getElement(1, 0), 20, 0.001);
+    	assertEquals(m.getElement(1, 1), -15, 0.001);
+    	assertEquals(m.getElement(1, 2), -4, 0.001);
+    	
+
+    	assertEquals(m.getElement(2, 0), -5, 0.001);
+    	assertEquals(m.getElement(2, 1), 4, 0.001);
+    	assertEquals(m.getElement(2, 2), 1, 0.001);
+    	
+    	a[0][0] = 1;
+    	a[0][1] = 2;
+    	a[0][2] = 3;  	
+    	
+    	a[1][0] = 2;
+    	a[1][1] = 4;
+       	a[1][2] = 6;
+
+    	a[2][0] = 5;
+    	a[2][1] = 6;
+    	a[2][2] = 0;
+    	
+    	m = new Matrix(a);
+
+    	a = new double[2][3];
+    	Matrix m2x3 = new Matrix(a);
+    	
+
+    	
+    	try{
+    		calc.invert(m);
+    		calc.invert(m2x3);
+    	}catch(Exception e){
+    		System.out.println(e);
+    	}
+    	
+    	
+    }
    
 }
