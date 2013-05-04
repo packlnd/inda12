@@ -9,7 +9,7 @@ public class InputParser {
 
 	private HashSet<String> keywords = new HashSet<String>();
 	private MatrixCalculator calculator;
-	public static final WRONG_INPUT = "Jag förstår inte vad du menar!";
+	public static final String WRONG_INPUT = "Jag förstår inte vad du menar!";
 	/**
 	 * Class constructor.
 	 */
