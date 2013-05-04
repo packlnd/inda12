@@ -9,6 +9,7 @@ public class InputParser {
 
 	private HashSet<String> keywords = new HashSet<String>();
 	private MatrixCalculator calculator;
+	public static final WRONG_INPUT = "Jag förstår inte vad du menar!";
 	/**
 	 * Class constructor.
 	 */
@@ -44,7 +45,7 @@ public class InputParser {
 			return doOperation(keyword, matrices);
 
 		} catch (IllegalArgumentException iae) {
-			return "Jag förstår inte vad du menar!";
+			return WRONG_INPUT;
 		}
 	}
 
