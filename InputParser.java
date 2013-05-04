@@ -58,6 +58,8 @@ public class InputParser {
 
 		if (keyword.equals("determinant")) {
 			return "" + calculator.findDeterminant(matrices.remove());
+		} else if (keyword.equals("invert")) {
+			return calculator.invert(matrices.remove()).toString();
 		} else if (keyword.equals("")) {
 			return matrices.remove().toString();
 		}
