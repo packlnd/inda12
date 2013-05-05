@@ -19,8 +19,11 @@ import java.awt.event.*;
 public class View extends JFrame {
 
 	JButton btnCalculate;
+	JButton btnMatrix;
+	JButton btnCopy;
 	JPanel backgroundPanel;
 	JPanel mainPanel;
+	JPanel buttonPanel;
 	JTextField txtInput;
 	JTextArea txtOutput;
 	InputParser parser;
@@ -61,10 +64,25 @@ public class View extends JFrame {
 		btnCalculate.addActionListener(new onCalculateClick());
 		btnCalculate.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		mainPanel.add(btnCalculate);
+
 		backgroundPanel.add(mainPanel);
+
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout());
+
+		btnMatrix = new JButton("Ny matris");
+		btnMatrix.addActionListener(new onMatrixClick());
+		buttonPanel.add(btnMatrix);
+
+		btnCopy = new JButton("Kopiera");
+		btnCopy.addActionListener(new onCopyClick());
+		buttonPanel.add(btnCopy);
+
+		backgroundPanel.add(buttonPanel);
 
 		txtOutput = new JTextArea();
 		txtOutput.setFont(f);
+		txtOutput.setEditable(false);
 		backgroundPanel.add(txtOutput);
 
 		setContentPane(backgroundPanel);
@@ -82,6 +100,24 @@ public class View extends JFrame {
 			// What to do with output? hashmap for later?
 			// ...
 			txtOutput.setText(output);
+		}
+	}
+
+	/**
+	 * Handle click on copy button.
+	 */
+	private class onCopyClick implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+
+	/**
+	 * Handle click on matrix button.
+	 */
+	private class onMatrixClick implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
 		}
 	}
 }
