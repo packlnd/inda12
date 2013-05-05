@@ -1,5 +1,4 @@
 import java.util.HashSet;
-import java.util.Arrays;
 import java.util.LinkedList;
 /**
  * Parses commands from View and turns it into commands 
@@ -27,8 +26,13 @@ public class InputParser {
 	 */
 	public String parseData(String input) {
 		try {
+			if (input == null) {
+				throw new IllegalArgumentException();
+			} else if (input.equals("")) {
+				return "";
+			}
+			
 			String[] rows = input.split("(](\\s)?\\[)|(\\[\\[)|(]])");
-			String rowOfNumbers = "(\\d)(\\s\\d)*";
 
 			// clean up data
 			for (int i = 0; i < rows.length; i++) {
@@ -116,10 +120,3 @@ public class InputParser {
 		return ((s.toCharArray().length + 1)/2);
 	}
 }
-
-/*
-multiply [[1 1] [2 2]][[3 3] [4 4]]
-multiply [[1 1] [2 2]][[3 3] [4 4]][[5 5] [6 6]]
-multiply [[1 0 0] [0 1 0] [0 0 1]][[1 0 0] [0 1 0] [0 0 1]]
-invert [[1 2] [3 4]]
-*/

@@ -1,4 +1,4 @@
-import org.junit.Assert.*;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class InputTest {
@@ -7,7 +7,7 @@ public class InputTest {
 	 */
 	 @Test
 	 public void testEmpty() {
-	 	assertTrue(doTest("", InputParser.WRONG_INPUT));
+	 	assertTrue(doTest("", ""));
 	 }
 
 	 /**
@@ -30,7 +30,7 @@ public class InputTest {
 
 	 private boolean doTest(String input, String solutionOutput) {
 	 	InputParser parser = new InputParser(new MatrixCalculator());
-	 	String output = parser.parse(input) + "";
+	 	String output = parser.parseData(input) + "";
 	 	return output.equals(solutionOutput);
 
 	 }
