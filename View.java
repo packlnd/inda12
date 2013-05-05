@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.*;
+import java.awt.datatransfer.*;
+import java.awt.Toolkit;
 
 /**
  * Class responsible for the view to the user. 
@@ -18,15 +20,15 @@ import java.awt.event.*;
  */
 public class View extends JFrame {
 
-	JButton btnCalculate;
-	JButton btnMatrix;
-	JButton btnCopy;
-	JPanel backgroundPanel;
-	JPanel mainPanel;
-	JPanel buttonPanel;
-	JTextField txtInput;
-	JTextArea txtOutput;
-	InputParser parser;
+	private JButton btnCalculate;
+	private JButton btnMatrix;
+	private JButton btnCopy;
+	private JPanel backgroundPanel;
+	private JPanel mainPanel;
+	private JPanel buttonPanel;
+	private JTextField txtInput;
+	private JTextArea txtOutput;
+	private InputParser parser;
 	
 	/**
 	 * Class constructor. Initializes GUI
@@ -108,7 +110,8 @@ public class View extends JFrame {
 	 */
 	private class onCopyClick implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			
+			Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+			cb.setContents(new StringSelection(txtOutput.getText()), null);
 		}
 	}
 
