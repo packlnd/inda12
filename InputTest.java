@@ -28,10 +28,20 @@ public class InputTest {
 	 	assertTrue(doTest("determinant [[8 3] [4 2]]", "4.0"));
 	 }
 
-	 private boolean doTest(String input, String solutionOutput) {
-	 	InputParser parser = new InputParser(new MatrixCalculator());
-	 	String output = parser.parseData(input) + "";
-	 	return output.equals(solutionOutput);
+	 /**
+	  * Test matrix with weird size.
+	  */
+	 @Test
+	 public void testWeirdSize() {
+	 	assertTrue(doTest("[[1 0 0] [0 1] [0 1 0]]", InputParser.WRONG_INPUT));
+	 	assertTrue(doTest("determinant [[1 0 0] [0 1] [0 1 0]]", InputParser.WRONG_INPUT));
+	 	assertTrue(doTest("invert [[1 0 0] [0 1] [0 1 0]]", InputParser.WRONG_INPUT));
+	 	assertTrue(doTest("[[1] [1 0] [1 0 0]]", InputParser.WRONG_INPUT));
+	 }
 
+	 private boolean doTest(String input, String solutionOutput) {
+		InputParser parser = new InputParser(new MatrixCalculator());
+		String output = parser.parseData(input) + "";
+	 	return output.equals(solutionOutput);
 	 }
 }
