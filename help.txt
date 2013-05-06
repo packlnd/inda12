@@ -1,1 +1,26 @@
 En massa hjälp!
+Hello and welcome to *FRAGMENT MISSING*
+This is a calculator of sorts which is designed to 
+handle matrices and common operations that can be performed on them.
+
+It takes input in the following form
+<operation> <matrix> <optional matrix>
+
+Matrices are represented as nested brackets
+[ [...] [...] ... [...] ]
+Where each sub-bracket is a row in the matrix.
+Because of this the number of elements 
+in each sub-bracket has to be the same.
+A 3x3 matrix in this representation would for example be
+[[1 2 3] [4 5 6][7 8 9]]
+This is equal to the matrix
+ 1  2	3
+ 4	5	6
+ 7	8	9
+
+List of valid operations:
+add <x> <y>
+multiply <x> <y>
+determinant <x>
+gauss <x>
+invert <x>
