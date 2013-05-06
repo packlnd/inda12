@@ -96,7 +96,15 @@ public class InputParser {
 			}
 			String[] elements = rows[i].split("\\s");
 			for (int j = 0; j < elements.length; j++) {
+			    boolean negative = false;
+			    if(elements[j].equals("-")){
+			        negative = true;
+			    }
 				matrix[row][j] = Double.parseDouble(elements[j]);
+				if(negative){
+				    matrix[row][j] *= (-1);
+				    negative = false;
+				}
 			}
 			row++;
 		}
