@@ -17,6 +17,7 @@ public class InputParser {
 		keywords.add("multiply");
 		keywords.add("determinant");
 		keywords.add("add");
+		keywords.add("gauss");
 		keywords.add("");
 		this.calculator = calculator;
 	}
@@ -65,6 +66,12 @@ public class InputParser {
 			return "" + calculator.findDeterminant(matrices.remove());
 		} else if (keyword.equals("invert")) {
 			return calculator.invert(matrices.remove()).toString();
+		} else if (keyword.equals("add")) {
+			return calculator.add(matrices.remove(), matrices.remove()).toString();
+		} else if (keyword.equals("gauss")) {
+			return calculator.gauss(matrices.remove()).toString();
+		} else if (keyword.equals("multiply")) {
+			return calculator.multiply(matrices.remove(), matrices.remove()).toString();
 		} else if (keyword.equals("")) {
 			return matrices.remove().toString();
 		}
