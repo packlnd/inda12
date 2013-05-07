@@ -14,7 +14,7 @@ in each sub-bracket has to be the same.
 A 3x3 matrix in this representation would for example be
 [[1 2 3] [4 5 6][7 8 9]]
 This is equal to the matrix
- 1  2	3
+ 1	2	3
  4	5	6
  7	8	9
 

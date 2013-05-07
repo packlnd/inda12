@@ -104,16 +104,12 @@ public class View extends JFrame {
         int errCode = 0; // Unix error handling
         BufferedReader file = null;
         try {
-            // FileReader uses "the default character encoding".
             file = new BufferedReader(new FileReader(fileName));
-
-            // To specify an encoding, use this code instead:
-            // file = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
             String help = read(file);
             txtOutput.setText(help);
         } catch (IOException e) {
                System.err.printf("%s: %s%n", fileName, e);
-            errCode = 1;
+                errCode = 1;
         } finally {
             try {
                 if (file != null) {
@@ -123,7 +119,9 @@ public class View extends JFrame {
                 System.err.printf("%s: %s%n", fileName, e);
                 errCode = 1;
             }
-            System.exit(errCode);
+            if (errCode != 0) {
+                System.exit(errCode);
+            }
         }
     }
         
@@ -132,7 +130,7 @@ public class View extends JFrame {
 	        String line;
 	        StringBuilder lines = new StringBuilder();
 	        while ((line = in.readLine()) != null) {
-	            lines.append(line);
+	            lines.append(line + "\n");
 	        }
 	        return lines.toString();
 	}
