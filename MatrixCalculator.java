@@ -1,4 +1,4 @@
-import java.text.DecimalFormat;
+
 
 
 public class MatrixCalculator {
@@ -63,39 +63,42 @@ public class MatrixCalculator {
 	 * Reduces Matrix A to row echelon form.
 	 */
 	public Matrix gauss(Matrix A){
-		int m = A.getNumRows();
-		int n = A.getNumCols();
+		int m = A.getNumRows(); 
+		int n =  A.getNumCols();
 		
 		for(int k = 0; k < m; k++){
-			int pivot=0;
+			int pivot=k;
 			
-			for(int j=k; j < m; j++){
-				if( pivot < Math.abs(A.getElement(j, k)) ){
-					pivot = j;
+			for(int i=k; i < m; i++){
+				for(int j=0; j < n; j++){
+					if( pivot < Math.abs(A.getElement(i, j)) ){
+						pivot = i;
+					}
 				}
 			}
-			/*
-			if(A.getElement(pivot, k) == 0){
-				throw new IllegalArgumentException("Matrix is singular!");
-			}*/
-			System.out.println("Before row swap " + A);
-			if(k != pivot)
-				A.swapRows(k, pivot);
+			//System.out.println("Before row swap " + A);
+			if(pivot != k)
+				A.swapRows(pivot, k);
 
-			System.out.println("After row swap " + A);
+			//System.out.println("After row swap " + A);
 			for(int i=k+1; i < m; i++){
 				A.addRowMultipliedByScalar( (-1)*(A.getElement(i, k)/A.getElement(k,k)), i, k);
 			}
 
-			System.out.println("After addition " + A);
+			//System.out.println("After addition " + A);
 			
 		}
-		
-		//Make all diagonal elements = 1 
+
+		//Make all pivot elements = 1 
 		for(int i = 0; i < m; i++){
-			if(A.getElement(i, i) != 0){
-				double scalar = (1/A.getElement(i, i));
-				A.multiplyRowByScalar( scalar, i);
+			for(int j = 0; j < n; j++){
+				if(A.getElement(i, j) != 0){
+					double scalar = (1/A.getElement(i, j));
+					A.multiplyRowByScalar( scalar, i);
+					i++;
+				}
+				if( i >= m)
+					break;
 			}
 		}
 		
@@ -116,8 +119,6 @@ public class MatrixCalculator {
 			throw new IllegalArgumentException("Non-square matrix");
 		
 		int n = A.getNumCols();
-		
-
 		boolean negative=false;
 		
 		for(int k = 0; k < n; k++){
@@ -169,6 +170,7 @@ public class MatrixCalculator {
 		
 		int n = A.getNumCols();
 		double [][] identity = new double[n][n];
+		
 		for(int i = 0; i < n; i++)
 			identity[i][i] = 1;
 		
@@ -235,6 +237,7 @@ public class MatrixCalculator {
 
 		//Round down elements of I
 		I.roundElements();
+		
 		return I;
 	}
 	
