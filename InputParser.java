@@ -21,15 +21,32 @@ public class InputParser {
 		keywords.add("");
 		this.calculator = calculator;
 	}
+	
+	public String parseData(String keyword, String input) {
+		try {
+			if (input.equals("")) {
+				return "";
+			}
+			
+			String[] rows = input.split("(](\\s)?\\[)|(\\[\\[)|(]])");
 
+			if (rows.length <= 0 ||	!keywords.contains(keyword)) {
+				throw new IllegalArgumentException();
+			}
+
+			LinkedList<Matrix> matrices = dataToMatrices(rows);
+			return doOperation(keyword, matrices);
+
+		} catch (IllegalArgumentException iae) {
+			return WRONG_INPUT;
+		}
+	}
 	/**
 	 * Takes a string and turns it into matrix operations.
 	 */
 	public String parseData(String input) {
 		try {
-			if (input == null) {
-				throw new IllegalArgumentException();
-			} else if (input.equals("")) {
+			if (input.equals("")) {
 				return "";
 			}
 			

@@ -27,9 +27,15 @@ public class View extends JFrame {
     private JButton btnCalculate;
     private JButton btnMatrix;
     private JButton btnCopy;
+    private JButton btnMultiply;
+    private JButton btnGauss;
+    private JButton btnAdd;
+    private JButton btnDeterminant;
+    private JButton btnInvert;
     private JPanel backgroundPanel;
     private JPanel mainPanel;
     private JPanel buttonPanel;
+    private JPanel operationsPanel;
     private JTextField txtInput;
     private JTextArea txtOutput;
     private InputParser parser;
@@ -46,7 +52,7 @@ public class View extends JFrame {
      * Create the GUI and display to the user.
      */
     public void createGUI() {
-        setPreferredSize(new Dimension(600, 400));
+        setPreferredSize(new Dimension(600, 600));
         backgroundPanel = new JPanel();
         backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
         mainPanel = new JPanel();
@@ -85,6 +91,31 @@ public class View extends JFrame {
         buttonPanel.add(btnCopy);
 
         backgroundPanel.add(buttonPanel);
+
+        operationsPanel = new JPanel();
+        operationsPanel.setLayout(new FlowLayout());
+
+        btnMultiply = new JButton("*");
+        btnMultiply.addActionListener(new onMultiplyClick());
+        operationsPanel.add(btnMultiply);
+
+        btnAdd = new JButton("+");
+        btnAdd.addActionListener(new onAddClick());
+        operationsPanel.add(btnAdd);
+
+        btnGauss = new JButton("Gaussa");
+        btnGauss.addActionListener(new onGaussClick());
+        operationsPanel.add(btnGauss);
+
+        btnInvert = new JButton("^-1");
+        btnInvert.addActionListener(new onInvertClick());
+        operationsPanel.add(btnInvert);
+
+        btnDeterminant = new JButton("D(M)");
+        btnDeterminant.addActionListener(new onDeterminantClick());
+        operationsPanel.add(btnDeterminant);
+
+        backgroundPanel.add(operationsPanel);
 
         txtOutput = new JTextArea();
         txtOutput.setFont(f);
@@ -134,7 +165,6 @@ public class View extends JFrame {
 	        }
 	        return lines.toString();
 	}
-	
     
 
     /**
@@ -154,6 +184,56 @@ public class View extends JFrame {
     /**
      * Handle click on copy button.
      */
+    private class onDeterminantClick implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String output = parser.parseData("determinant", txtInput.getText());
+            txtOutput.setText(output);
+        }
+    }
+
+    /**
+     *
+     */
+    private class onGaussClick implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String output = parser.parseData("gauss", txtInput.getText());
+            txtOutput.setText(output);
+        }
+    }
+
+    /**
+     *
+     */
+    private class onInvertClick implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String output = parser.parseData("invert", txtInput.getText());
+            txtOutput.setText(output);
+        }
+    }
+
+    /**
+     *
+     */
+    private class onMultiplyClick implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String output = parser.parseData("multiply", txtInput.getText());
+            txtOutput.setText(output);
+        }
+    }
+
+    /**
+     *
+     */
+    private class onAddClick implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String output = parser.parseData("add", txtInput.getText());
+            txtOutput.setText(output);
+        }
+    }
+
+    /**
+     *
+     */
     private class onCopyClick implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -166,7 +246,8 @@ public class View extends JFrame {
      */
     private class onMatrixClick implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            
+            String output = parser.parseData(txtInput.getText());
+            txtOutput.setText(output);
         }
     }
 }
