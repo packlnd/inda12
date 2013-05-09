@@ -111,7 +111,7 @@ public class View extends JFrame {
         btnInvert.addActionListener(new onInvertClick());
         operationsPanel.add(btnInvert);
 
-        btnDeterminant = new JButton("D(M)");
+        btnDeterminant = new JButton("det(M)");
         btnDeterminant.addActionListener(new onDeterminantClick());
         operationsPanel.add(btnDeterminant);
 
