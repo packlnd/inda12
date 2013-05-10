@@ -8,10 +8,11 @@ public class MatrixCalculator {
 	 * Adds two Matrices together and returns the sum as a new Matrix.
 	 * @param A Matrix
 	 * @param B Matrix
+	 * @throws DifferentSizedMatricesException 
 	 */
-	public Matrix add(Matrix A, Matrix B){
+	public Matrix add(Matrix A, Matrix B) throws DifferentSizedMatricesException{
 		if( A.getNumRows() != B.getNumRows() || A.getNumCols() != B.getNumCols() ){
-			throw new IllegalArgumentException("Matrices differ in size.");
+			throw new DifferentSizedMatricesException("Matrices differ in size.");
 		}
 		int n = A.getNumRows();
 		int m = A.getNumCols();
@@ -35,10 +36,11 @@ public class MatrixCalculator {
 	 * Multiplies two Matrices together and returns the sum as a new Matrix.
 	 * @param A Matrix
 	 * @param B Matrix
+	 * @throws NonMultipliableMatrices 
 	 */
-	public Matrix multiply(Matrix A, Matrix B){
+	public Matrix multiply(Matrix A, Matrix B) throws NonMultipliableMatrices{
 		if( A.getNumCols() != B.getNumRows()  ){
-			throw new IllegalArgumentException("Number of rows in A is not equal to the number of columns in B.");
+			throw new NonMultipliableMatrices("Number of rows in A is not equal to the number of columns in B.");
 		}
 		
 		int n = A.getNumCols();
@@ -113,10 +115,11 @@ public class MatrixCalculator {
 	
 	/**
 	 * Finds the determinant, if it exists.
+	 * @throws NonSquareMatrixException 
 	 */
-	public double findDeterminant(Matrix A){
+	public double findDeterminant(Matrix A) throws NonSquareMatrixException{
 		if(A.getNumCols() != A.getNumRows())
-			throw new IllegalArgumentException("Non-square matrix");
+			throw new NonSquareMatrixException("Non-square matrix");
 		
 		int n = A.getNumCols();
 		boolean negative=false;
@@ -160,13 +163,12 @@ public class MatrixCalculator {
 	/**
 	 * Inverts an nxn matrix A
 	 * @param A
-	 * @throws IllegalArgumentException if
-	 * 			1) Matrix is not square
-	 * 			3) Determinant == 0
+	 * @throws NonSquareMatrixException
+	 * @throws NonInvertibleMatrixException 
 	 */
-	public Matrix invert(Matrix A){
+	public Matrix invert(Matrix A) throws NonSquareMatrixException, NonInvertibleMatrixException{
 		if(A.getNumCols() != A.getNumRows())
-			throw new IllegalArgumentException("Non-square matrix");
+			throw new NonSquareMatrixException("Non-square matrix");
 		
 		int n = A.getNumCols();
 		double [][] identity = new double[n][n];
@@ -199,12 +201,10 @@ public class MatrixCalculator {
 		}
 		
 		//Check that determinant is != 0 <=> matrix is invertible
-		double det=A.getElement(0,0);
-		for(int i = 1; i < n; i++){
-			det *= A.getElement(i, i);
+		for(int i = 0; i < n; i++){
+			if( A.getElement(i, i) == 0 )
+				throw new NonInvertibleMatrixException("Matrix is not invertible!");
 		}
-		if(det == 0)
-			throw new IllegalArgumentException("Matrix is not invertible!");
 
 		//Make all diagonal elements = 1 
 		for(int i = 0; i < n; i++){
@@ -214,8 +214,7 @@ public class MatrixCalculator {
 		}
 
 		/*
-		 * Invariant: (Sort of)
-		 * A[i, i] is the only element on row n.
+		 * A[i, i] is the only non-zero element on row n.
 		 * A[i, i] = 1.
 		 * All diagonal elements are = 1.
 		 * 
@@ -235,7 +234,7 @@ public class MatrixCalculator {
 			}
 		}
 
-		//Round down elements of I
+		//Round elements of I
 		I.roundElements();
 		
 		return I;
