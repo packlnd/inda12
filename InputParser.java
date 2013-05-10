@@ -78,21 +78,50 @@ public class InputParser {
 		if (matrices.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
+		
+		String result="";
 
 		if (keyword.equals("determinant")) {
-			return "" + calculator.findDeterminant(matrices.remove());
+			try{
+				result += calculator.findDeterminant(matrices.remove());
+			}catch(NonSquareMatrixException e){
+				result += "Matrisen är icke-kvadratisk!";
+			}
 		} else if (keyword.equals("invert")) {
-			return calculator.invert(matrices.remove()).toString();
+			try{
+				result += calculator.invert(matrices.remove()).toString();
+			}catch(NonSquareMatrixException e){
+				result += "Matrisen är icke-kvadratisk!";
+			}catch(NonInvertibleMatrixException e){
+				result += "Matrisen saknar invers!";
+			}
 		} else if (keyword.equals("add")) {
-			return calculator.add(matrices.remove(), matrices.remove()).toString();
+			Matrix A = matrices.remove();
+			Matrix B = matrices.remove();
+			try {
+				result += calculator.add(A, B).toString();
+			} catch (DifferentSizedMatricesException e) {
+				result += "Matriserna har olika storlek! \n";
+				result += ("A är en " + A.getNumRows() + "x" + A.getNumCols() + "-matris \n");
+				result += ("B är en " + B.getNumRows() + "x" + B.getNumCols() + "-matris \n");
+			}
 		} else if (keyword.equals("gauss")) {
-			return calculator.gauss(matrices.remove()).toString();
+			result += calculator.gauss(matrices.remove()).toString();
 		} else if (keyword.equals("multiply")) {
-			return calculator.multiply(matrices.remove(), matrices.remove()).toString();
+			Matrix A = matrices.remove();
+			Matrix B = matrices.remove();
+			try {
+				result += calculator.multiply(A, B).toString();
+			} catch (NonMultipliableMatrices e) {
+				result += "Matriserna går inte att multiplicera! \n";
+				result += ("Antalet rader i A = " + A.getNumRows() + "\n");
+				result += ("Antal kolonner i B = " + B.getNumCols() );
+			}
 		} else if (keyword.equals("")) {
-			return matrices.remove().toString();
+			result += matrices.remove().toString();
 		}
-		throw new IllegalArgumentException();
+
+		return result;
 	}
 
 	/**
@@ -119,6 +148,7 @@ public class InputParser {
 				throw new IllegalArgumentException();
 			}
 			String[] elements = rows[i].split("\\s");
+			
 			for (int j = 0; j < elements.length; j++) {
 			    boolean negative = false;
 			    if(elements[j].equals("-")){
