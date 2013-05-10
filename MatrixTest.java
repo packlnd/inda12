@@ -188,9 +188,10 @@ public class MatrixTest{
      * Adds a matrix to a matrix with the same values, should double the value of each index.
      * 
      * Adds a 2x2 matrix to a 4x4 matrix, should fail.
+     * @throws DifferentSizedMatricesException 
      */
     @Test
-    public void TestAddMatrix(){
+    public void TestAddMatrix() throws DifferentSizedMatricesException{
     	Matrix m = calc.add(m0, m4x4);
     	
     	//Tests 4x4 matrix
@@ -213,7 +214,7 @@ public class MatrixTest{
     	try{
     		calc.add(m2x2, m4x4);
     		fail();
-    	}catch (IllegalArgumentException e){
+    	}catch (DifferentSizedMatricesException e){
     	}
     	
     }
@@ -228,9 +229,10 @@ public class MatrixTest{
      * Multiplication with a row/column matrix. AB != BA.
      * 
      * Multiplication with non-applicable matrices.
+     * @throws NonMultipliableMatrices 
      */
     @Test
-    public void TestMultiplyMatrix(){
+    public void TestMultiplyMatrix() throws NonMultipliableMatrices{
     	Matrix m = calc.multiply(m0, m4x4);
     	
     	//Tests 4x4 matrix
@@ -292,7 +294,7 @@ public class MatrixTest{
     	try{
     		calc.multiply(m1x4, m1x4);
     		fail();
-    	}catch (Exception e){
+    	}catch (NonMultipliableMatrices e){
     	}
    
     	
@@ -300,9 +302,10 @@ public class MatrixTest{
     
     /**
      * Tests the determinant method.
+     * @throws NonSquareMatrixException 
      */
     @Test
-    public void TestFindDeterminant(){
+    public void TestFindDeterminant() throws NonSquareMatrixException{
     	double[][] a = new double[2][2];
     	a[0][0] = 1;
     	a[0][1] = 2;
@@ -311,7 +314,9 @@ public class MatrixTest{
 	
     	Matrix m = new Matrix(a);
     	
+    	//Should not throw exception
     	assertEquals(-2, calc.findDeterminant(m), 0.001);
+
     	
     	a[0][0] = 3;	
     	a[0][1] = 4;
@@ -319,9 +324,11 @@ public class MatrixTest{
     	a[1][1] = 2;
 	
     	m = new Matrix(a);
-    	assertEquals(2, calc.findDeterminant(m), 0.001);
-
     	
+
+    	//Should not throw exception
+		assertEquals(2, calc.findDeterminant(m), 0.001);
+		
     	double b[][] = new double[4][4];
     	
     	b[0][0] = 2;
@@ -345,6 +352,8 @@ public class MatrixTest{
 		b[3][3] = 3;
 
     	m = new Matrix(b);
+
+    	//Should not throw exception
     	assertEquals(24, calc.findDeterminant(m), 0.001);
     }
     
@@ -404,9 +413,13 @@ public class MatrixTest{
     	System.out.println(m3x2);
     }
     
-    
+    /**
+     * 
+     * @throws NonSquareMatrixException
+     * @throws NonInvertibleMatrixException
+     */
     @Test
-    public void TestInvert(){
+    public void TestInvert() throws NonSquareMatrixException, NonInvertibleMatrixException{
     	double[][] a = new double[3][3];
     	a[0][0] = 1;
     	a[0][1] = 2;
@@ -422,8 +435,9 @@ public class MatrixTest{
     	
     	Matrix m = new Matrix(a);
     	
-    	m = calc.invert(m);
 
+    	m = calc.invert(m);
+    
     	assertEquals(m.getElement(0, 0), -24, 0.001);
     	assertEquals(m.getElement(0, 1), 18, 0.001);
     	assertEquals(m.getElement(0, 2), 5, 0.001);
