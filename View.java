@@ -17,7 +17,6 @@ import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
 /**
  * Class responsible for the view to the user. 
  * Handles input and ouput from and to the user.
@@ -25,7 +24,6 @@ import java.util.LinkedList;
 public class View extends JFrame {
 
     private JButton btnCalculate;
-    private JButton btnMatrix;
     private JButton btnCopy;
     private JButton btnMultiply;
     private JButton btnGauss;
@@ -81,10 +79,6 @@ public class View extends JFrame {
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-
-        btnMatrix = new JButton("Ny matris");
-        btnMatrix.addActionListener(new onMatrixClick());
-        buttonPanel.add(btnMatrix);
 
         btnCopy = new JButton("Kopiera");
         btnCopy.addActionListener(new onCopyClick());
@@ -232,22 +226,12 @@ public class View extends JFrame {
     }
 
     /**
-     *
+     * 
      */
     private class onCopyClick implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
             cb.setContents(new StringSelection(txtOutput.getText()), null);
-        }
-    }
-
-    /**
-     * Handle click on matrix button.
-     */
-    private class onMatrixClick implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            String output = parser.parseData(txtInput.getText());
-            txtOutput.setText(output);
         }
     }
 }
