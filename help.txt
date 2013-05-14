@@ -1,26 +1,28 @@
-En massa hjälp!
-Hello and welcome to *FRAGMENT MISSING*
-This is a calculator of sorts which is designed to 
-handle matrices and common operations that can be performed on them.
+Hej och välkommen till packland och lassebes matrisräknare!
 
-It takes input in the following form
-<operation> <matrix> <optional matrix>
+Den här kalkylatorn är designad för att hantera matriser, 
+och några av de vanligaste operationerna som är kopplade till dessa.
 
-Matrices are represented as nested brackets
+Matriser är representerade mha nästlade hakparanteser
 [ [...] [...] ... [...] ]
-Where each sub-bracket is a row in the matrix.
-Because of this the number of elements 
-in each sub-bracket has to be the same.
-A 3x3 matrix in this representation would for example be
-[[1 2 3] [4 5 6][7 8 9]]
-This is equal to the matrix
- 1	2	3
- 4	5	6
- 7	8	9
+Där varje sub-parantes motsvarar en rad i matrisen.
+Det innebär att varje subparantes måste innehålla lika många element.
 
-List of valid operations:
+En 3x3 matris skulle se ut såhär:
+[[1 2 3] [4 5 6] [7 8 9]]
+Det motsvarar alltså matrisen
+1 2	3
+4	5	6
+7	8	9
+
+För att utföra operationer kan du antingen skriva in nyckelorden själv,
+eller så kan du använda knapparna, då behöver du bara mata in en/två matriser.
+
+Lista med operationer
+Binära (två matriser)
 add <x> <y>
 multiply <x> <y>
+Unära (en matris)
 determinant <x>
 gauss <x>
 invert <x>
