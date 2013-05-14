@@ -55,6 +55,7 @@ public class InputParser {
 			// clean up data
 			for (int i = 0; i < rows.length; i++) {
 				rows[i] = rows[i].trim().toLowerCase();
+				rows[i] = rows[i].replace(',', '.');
 			}
 			String keyword = rows[0];
 			rows[0] = "";
