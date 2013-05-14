@@ -179,6 +179,12 @@ public class InputParser {
 	 * Return the number of elemens in this row.
 	 */
 	private int elementsInRow(String s) {
-		return ((s.toCharArray().length + 1)/2);
+		int count = 1;
+		for (char c : s.toCharArray()) {
+			if (c == ' ') {
+				count++;
+			}
+		}
+		return count;
 	}
 }
