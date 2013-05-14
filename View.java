@@ -37,6 +37,7 @@ public class View extends JFrame {
     private JTextField txtInput;
     private JTextArea txtOutput;
     private InputParser parser;
+    private final String help = openFile();
     
     /**
      * Class constructor. Initializes GUI
@@ -124,14 +125,17 @@ public class View extends JFrame {
     }
 
     private void displayHelp(){
-        final String fileName = "help.txt";
-         
+    	txtOutput.setText(help);
+    }
+    
+    private String openFile(){
+    	final String fileName = "help.txt";
+        
         int errCode = 0; // Unix error handling
         BufferedReader file = null;
         try {
             file = new BufferedReader(new FileReader(fileName));
-            String help = read(file);
-            txtOutput.setText(help);
+            return read(file);
         } catch (IOException e) {
                System.err.printf("%s: %s%n", fileName, e);
                 errCode = 1;
@@ -148,8 +152,10 @@ public class View extends JFrame {
                 System.exit(errCode);
             }
         }
+        //Should be unreachable.
+        return "";
     }
-        
+    
     private  String read( BufferedReader in)
 	 throws IOException {
 	        String line;
