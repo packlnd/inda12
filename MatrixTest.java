@@ -377,9 +377,7 @@ public class MatrixTest{
     	
     	Matrix m3x3 = new Matrix(a);
 
-    	System.out.println(m3x3);
     	calc.gauss(m3x3);
-    	System.out.println(m3x3);
     	
     	a = new double[2][3];
     	a[0][0] = 1;
@@ -392,9 +390,7 @@ public class MatrixTest{
     	
     	Matrix m2x3 = new Matrix(a);
 
-    	System.out.println(m2x3);
     	m2x3 = calc.gauss(m2x3);
-    	System.out.println(m2x3);
     	
     	a = new double[3][2];
     	a[0][0] = 1;
@@ -408,9 +404,16 @@ public class MatrixTest{
     	
     	Matrix m3x2 = new Matrix(a);
 
-    	System.out.println(m3x2);
     	m2x3 = calc.gauss(m3x2);
-    	System.out.println(m3x2);
+    	
+    	
+    	a = new double[2][2];
+    	a[0][0] = 1;
+    	a[0][1] = 0;
+    	a[1][0] = 0;
+    	a[1][1] = 1;
+    	Matrix m2x2 = new Matrix(a);
+    	m2x2 = calc.gauss(m2x2);
     }
     
     /**
