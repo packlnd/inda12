@@ -28,7 +28,7 @@ public class InputParser {
 				return "";
 			}
 			
-			String[] rows = input.split("(](\\s)?\\[)|(\\[\\[)|(]])");
+			String[] rows = input.split("(](\\s)?\\[)|(\\[\\[)|(]])(\\s*)");
 
 			if (rows.length <= 0 ||	!keywords.contains(keyword)) {
 				throw new IllegalArgumentException();
@@ -50,7 +50,7 @@ public class InputParser {
 				return "";
 			}
 			
-			String[] rows = input.split("(](\\s)?\\[)|(\\[\\[)|(]])");
+			String[] rows = input.split("(](\\s)?\\[)|(\\[\\[)|(]])(\\s*)");
 
 			// clean up data
 			for (int i = 0; i < rows.length; i++) {
