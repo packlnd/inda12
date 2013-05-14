@@ -35,6 +35,7 @@ public class View extends JFrame {
     private JPanel mainPanel;
     private JPanel buttonPanel;
     private JPanel operationsPanel;
+    private JPanel helpPanel;
     private JTextField txtInput;
     private JTextArea txtOutput;
     private InputParser parser;
@@ -111,11 +112,16 @@ public class View extends JFrame {
         btnDeterminant.addActionListener(new onDeterminantClick());
         operationsPanel.add(btnDeterminant);
         
+        backgroundPanel.add(operationsPanel);
+        
+        helpPanel = new JPanel();
+        helpPanel.setLayout(new FlowLayout());
+        
         btnHelp = new JButton("Hjälp");
         btnHelp.addActionListener(new onHelpClick());
-        operationsPanel.add(btnHelp);
-
-        backgroundPanel.add(operationsPanel);
+        helpPanel.add(btnHelp);
+        
+        backgroundPanel.add(helpPanel);
 
         txtOutput = new JTextArea();
         txtOutput.setFont(f);
