@@ -78,16 +78,17 @@ public class MatrixCalculator {
 					}
 				}
 			}
-			//System.out.println("Before row swap " + A);
+			System.out.println("Before row swap " + A);
 			if(pivot != k)
 				A.swapRows(pivot, k);
 
-			//System.out.println("After row swap " + A);
+			System.out.println("After row swap " + A);
 			for(int i=k+1; i < m; i++){
+				if(A.getElement(k, k) != 0)
 				A.addRowMultipliedByScalar( (-1)*(A.getElement(i, k)/A.getElement(k,k)), i, k);
 			}
 
-			//System.out.println("After addition " + A);
+			System.out.println("After addition " + A);
 			
 		}
 
