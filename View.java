@@ -80,12 +80,14 @@ public class View extends JFrame {
 
         backgroundPanel.add(mainPanel);
 
+        /*
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-
+        
         btnCopy = new JButton("Kopiera");
         btnCopy.addActionListener(new onCopyClick());
         buttonPanel.add(btnCopy);
+       
 
         backgroundPanel.add(buttonPanel);
 
@@ -100,6 +102,36 @@ public class View extends JFrame {
         btnAdd.addActionListener(new onAddClick());
         operationsPanel.add(btnAdd);
 
+        btnGauss = new JButton("Gaussa");
+        btnGauss.addActionListener(new onGaussClick());
+        operationsPanel.add(btnGauss);
+
+        btnInvert = new JButton("^-1");
+        btnInvert.addActionListener(new onInvertClick());
+        operationsPanel.add(btnInvert);
+
+        btnDeterminant = new JButton("det(M)");
+        btnDeterminant.addActionListener(new onDeterminantClick());
+        operationsPanel.add(btnDeterminant);
+        
+        backgroundPanel.add(operationsPanel);*/
+
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        
+        btnAdd = new JButton("+");
+        btnAdd.addActionListener(new onAddClick());
+        buttonPanel.add(btnAdd);
+        
+        btnMultiply = new JButton("*");
+        btnMultiply.addActionListener(new onMultiplyClick());
+        buttonPanel.add(btnMultiply);
+        
+        backgroundPanel.add(buttonPanel);
+        
+        operationsPanel = new JPanel();
+        operationsPanel.setLayout(new FlowLayout());
+        
         btnGauss = new JButton("Gaussa");
         btnGauss.addActionListener(new onGaussClick());
         operationsPanel.add(btnGauss);
