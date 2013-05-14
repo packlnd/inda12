@@ -30,6 +30,7 @@ public class View extends JFrame {
     private JButton btnAdd;
     private JButton btnDeterminant;
     private JButton btnInvert;
+    private JButton btnHelp;
     private JPanel backgroundPanel;
     private JPanel mainPanel;
     private JPanel buttonPanel;
@@ -109,6 +110,10 @@ public class View extends JFrame {
         btnDeterminant = new JButton("det(M)");
         btnDeterminant.addActionListener(new onDeterminantClick());
         operationsPanel.add(btnDeterminant);
+        
+        btnHelp = new JButton("Hjälp");
+        btnHelp.addActionListener(new onHelpClick());
+        operationsPanel.add(btnHelp);
 
         backgroundPanel.add(operationsPanel);
 
@@ -238,6 +243,15 @@ public class View extends JFrame {
         public void actionPerformed(ActionEvent e) {
             Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
             cb.setContents(new StringSelection(txtOutput.getText()), null);
+        }
+    }
+    
+    /**
+     * 
+     */
+    private class onHelpClick implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            displayHelp();
         }
     }
 }
