@@ -78,17 +78,17 @@ public class MatrixCalculator {
 					}
 				}
 			}
-			System.out.println("Before row swap " + A);
+			//System.out.println("Before row swap " + A);
 			if(pivot != k)
 				A.swapRows(pivot, k);
 
-			System.out.println("After row swap " + A);
+			//System.out.println("After row swap " + A);
 			for(int i=k+1; i < m; i++){
 				if(A.getElement(k, k) != 0)
-				A.addRowMultipliedByScalar( (-1)*(A.getElement(i, k)/A.getElement(k,k)), i, k);
+					A.addRowMultipliedByScalar( (-1)*(A.getElement(i, k)/A.getElement(k,k)), i, k);
 			}
 
-			System.out.println("After addition " + A);
+			//System.out.println("After addition " + A);
 			
 		}
 
@@ -134,6 +134,7 @@ public class MatrixCalculator {
 				}
 			}
 			
+
 			if(k != pivot){
 				A.swapRows(k, pivot);
 
@@ -146,9 +147,9 @@ public class MatrixCalculator {
 			
 			//For all rows below pivot
 			for(int i=k+1; i < n; i++){
-				A.addRowMultipliedByScalar( (-1)*(A.getElement(i, k)/A.getElement(k,k)), i, k);
+				if(A.getElement(k, k) != 0)
+					A.addRowMultipliedByScalar( (-1)*(A.getElement(i, k)/A.getElement(k,k)), i, k);
 			}
-			
 		}
 		double det=A.getElement(0,0);
 		for(int i = 1; i < n; i++){
@@ -194,9 +195,11 @@ public class MatrixCalculator {
 			}
 			
 			for(int i=k+1; i < n; i++){
-				double scalar = (-1)*(A.getElement(i, k)/A.getElement(k,k));
-				A.addRowMultipliedByScalar( scalar, i, k);
-				I.addRowMultipliedByScalar( scalar, i, k);
+				if(A.getElement(k, k) != 0){
+					double scalar = (-1)*(A.getElement(i, k)/A.getElement(k,k));
+					A.addRowMultipliedByScalar( scalar, i, k);
+					I.addRowMultipliedByScalar( scalar, i, k);
+				}
 			}
 			
 		}
@@ -209,9 +212,11 @@ public class MatrixCalculator {
 
 		//Make all diagonal elements = 1 
 		for(int i = 0; i < n; i++){
-			double scalar = (1/A.getElement(i, i));
-			A.multiplyRowByScalar( scalar, i);
-			I.multiplyRowByScalar( scalar, i);
+			if(A.getElement(i, i) != 0){
+				double scalar = (1/A.getElement(i, i));
+				A.multiplyRowByScalar( scalar, i);
+				I.multiplyRowByScalar( scalar, i);
+			}
 		}
 
 		/*
